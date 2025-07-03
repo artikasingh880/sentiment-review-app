@@ -26,3 +26,17 @@ if st.button("🔍 Predict Sentiment"):
             st.success(f"✅ Positive Sentiment ({probability*100:.2f}% confidence)")
         else:
             st.error(f"❌ Negative Sentiment ({probability*100:.2f}% confidence)")
+
+sentiment-review-app/
+│
+├── app.py
+├── sentiment_model.pkl        ✅ Trained logistic regression model
+├── tfidf_vectorizer.pkl       ✅ Saved TfidfVectorizer
+├── requirements.txt           ✅ Dependency list
+
+streamlit
+scikit-learn
+pandas
+textblob
+joblib
+
