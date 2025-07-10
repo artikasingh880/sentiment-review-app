@@ -48,19 +48,18 @@ if analyze:
         ax_wc.axis("off")
         st.pyplot(fig_wc)
 
-        # 💬 Categorize the review based on sentiment
-        st.markdown("### Review Categorization Based on Sentiment")
+     #  Categorize the review based on sentiment
+        st.markdown("### 💬 Review Categorization Based on Sentiment")
 
-        if pos > neg and pos > neu:
+        if neu >= pos and neu >= neg and neu >= 0.33:
+            st.info(" **Neutral Statement**")
+            st.write(user_input)
+        elif pos > neg:
             st.success(" **Positive Statement**")
             st.write(user_input)
-        elif neg > pos and neg > neu:
+        else:
             st.error(" **Negative Statement**")
             st.write(user_input)
-        else:
-            st.info("**Neutral Statement**")
-            st.write(user_input)
-
 
         #  Sentiment Result
         if pos > neg and pos > neu:
