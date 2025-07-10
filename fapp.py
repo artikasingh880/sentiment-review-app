@@ -6,18 +6,18 @@ from bert_model1 import predict_sentiment
 
 st.set_page_config(page_title="Sentiment Analysis with BERT", layout="centered")
 
-st.markdown("## 📊 BERT Sentiment Analysis App")
+st.markdown("## BERT Sentiment Analysis App")
 st.markdown("Enter a product review below. This app will analyze its sentiment.")
 
 # Input box
-user_input = st.text_area("📝 Enter your review here:", height=150)
+user_input = st.text_area("Enter your review here:", height=150)
 
 # Button row
 col1, col2 = st.columns([1, 1])
 with col1:
-    analyze = st.button("🔍 Analyze")
+    analyze = st.button("Analyze")
 with col2:
-    reset = st.button("🧼 Clear")
+    reset = st.button("Clear")
 
 # On Analyze
 if analyze:
@@ -26,27 +26,40 @@ if analyze:
         sentiment_probs = predict_sentiment(user_input)
         pos = sentiment_probs["Positive"]
         neg = sentiment_probs["Negative"]
-        neu = sentiment_probs["Neutral"]  # ✅ Fix added here
+        neu = sentiment_probs["Neutral"]  
 
-        # 🌥️ Word Cloud (Improved)
-        st.markdown("### 🌥️ Word Cloud")
-        custom_stopwords = set(STOPWORDS)
-        custom_stopwords.update(["product", "amazon", "buy", "purchase", "item"])
-        wc = WordCloud(
-            width=800,
-            height=400,
-            background_color='white',
-            colormap='viridis',
-            stopwords=custom_stopwords,
-            max_words=100,
-            contour_color='steelblue',
-            contour_width=1,
-            random_state=42
-        ).generate(user_input)
-        fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
-        ax_wc.imshow(wc, interpolation='bilinear')
-        ax_wc.axis("off")
-        st.pyplot(fig_wc)
+#  Word Cloud 
+st.markdown("###  Word Cloud")
+custom_stopwords = set(STOPWORDS)
+custom_stopwords.update(["product", "amazon", "buy", "purchase", "item"])
+wc = WordCloud(
+    width=800,
+    height=400,
+    background_color='white',
+    colormap='viridis',
+    stopwords=custom_stopwords,
+    max_words=100,
+    contour_color='steelblue',
+    contour_width=1,
+    random_state=42
+).generate(user_input)
+fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
+ax_wc.imshow(wc, interpolation='bilinear')
+ax_wc.axis("off")
+st.pyplot(fig_wc)
+
+# 💬 Show the user's input under sentiment category
+st.markdown("### 💬 Review Categorization Based on Sentiment")
+
+if pos > neg and pos > neu:
+    st.success("✅ **Positive Statement**")
+    st.write(user_input)
+elif neg > pos and neg > neu:
+    st.error("❌ **Negative Statement**")
+    st.write(user_input)
+else:
+    st.info("😐 **Neutral Statement**")
+    st.write(user_input)
 
         # ✅ Sentiment Result
         if pos > neg and pos > neu:
@@ -61,10 +74,10 @@ if analyze:
         fig1, ax1 = plt.subplots()
         ax1.pie(
             [pos, neg, neu],
-            labels=["😊 Positive", "😠 Negative", "😐 Neutral"],
+            labels=[" Positive", " Negative", " Neutral"],
             autopct='%1.1f%%',
             startangle=90,
-            colors=["green", "red", "gray"]
+            colors=["green", "red", "yellow"]
         )
         ax1.axis("equal")
         st.pyplot(fig1)
