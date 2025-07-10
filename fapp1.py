@@ -35,34 +35,34 @@ if analyze:
         ax_wc.axis("off")
         st.pyplot(fig_wc)
 
-        # Sentiment result
-        if pos >= 0.9:
-            st.success("😊 Sentiment: Positive (100%)")
-        elif neg >= 0.9:
-            st.error("😠 Sentiment: Negative (100%)")
+       # Show dominant sentiment
+        if pos > neg:
+            st.success(f"Sentiment: Positive ({pos*100:.1f}%)")
+        else:
+            st.error(f" Sentiment: Negative ({neg*100:.1f}%)")
 
-            # 📊 Pie Chart
-            st.markdown("### 🥧 Sentiment Pie Chart")
-            fig1, ax1 = plt.subplots()
-            ax1.pie(
-                [pos, neg],
-                labels=["😊 Positive", "😠 Negative"],
-                autopct='%1.1f%%',
-                startangle=90,
-                colors=["green", "red"]
-            )
-            ax1.axis("equal")
-            st.pyplot(fig1)
+        # 📊 Pie Chart
+        st.markdown("### Sentiment Pie Chart")
+        fig1, ax1 = plt.subplots()
+        ax1.pie(
+            [pos, neg],
+            labels=["Positive", " Negative"],
+            autopct='%1.1f%%',
+            startangle=90,
+            colors=["green", "red"]
+        )
+        ax1.axis("equal")
+        st.pyplot(fig1)
 
-            # 📈 Bar Chart
-            st.markdown("### Sentiment Bar Chart")
-            fig2, ax2 = plt.subplots()
-            ax2.bar(["Positive", "Negative"], [pos * 100, neg * 100], color=["green", "red"])
-            ax2.set_ylabel("Confidence (%)")
-            ax2.set_ylim(0, 100)
-            for i, val in enumerate([pos, neg]):
-                ax2.text(i, val * 100 + 1, f"{val*100:.1f}%", ha='center')
-            st.pyplot(fig2)
+        # 📈 Bar Chart
+        st.markdown("### Sentiment Bar Chart")
+        fig2, ax2 = plt.subplots()
+        ax2.bar(["Positive", "Negative"], [pos * 100, neg * 100], color=["green", "red"])
+        ax2.set_ylabel("Confidence (%)")
+        ax2.set_ylim(0, 100)
+        for i, val in enumerate([pos, neg]):
+            ax2.text(i, val * 100 + 1, f"{val*100:.1f}%", ha='center')
+        st.pyplot(fig2)
 
         # 📝 Feedback Section
         st.markdown("---")
