@@ -40,8 +40,6 @@ if analyze:
             st.success("😊 Sentiment: Positive (100%)")
         elif neg >= 0.9:
             st.error("😠 Sentiment: Negative (100%)")
-        else:
-            st.info("😐 Mixed Sentiment Detected")
 
             # 📊 Pie Chart
             st.markdown("### 🥧 Sentiment Pie Chart")
