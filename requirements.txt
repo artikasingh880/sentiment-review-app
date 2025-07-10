@@ -1,5 +1,6 @@
 streamlit
-scikit-learn
+torch
+transformers
+matplotlib
+wordcloud
 pandas
-textblob
-joblib
